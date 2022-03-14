@@ -1,27 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import {auth,provider} from '../firebase'
-
 
 function Login() {
-    
-    //the following method returns a promise thus we use .then
-    const signIn = () => {
-         auth.signInWithPopup(provider)
-         .then((result) => {
-             console.log(result.user)
-         })
-         .catch((error) => {
-             alert(error.message)
-         })
-    }
 
     return (
         <ContainerLogin>
             <Content>
                 <SlackImg  src='http://assets.stickpng.com/images/5cb480cd5f1b6d3fbadece79.png'/>
                 <h1>Sign in to slack</h1>
-                <SigninButton onClick={() =>signIn}>
+                <SigninButton >
                     Sign in with google
                 </SigninButton>
             </Content>

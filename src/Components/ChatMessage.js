@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 import React from 'react'
 
-function ChatMessage() {
+function ChatMessage({text,name,image,timestamp}) {
   return (
     <ChatArea>
         <UserAvatar>
-            <img src="https://pbs.twimg.com/profile_images/1492252344469307396/jds4nI0b_400x400.jpg" />
+            <img src= {image} />
         </UserAvatar>
         <MessageContent>
             <Name>Marriane Akeyo
                 <span>
-                    10/03/2022 12:14 AM
+                    {new Date(timestamp.toDate()).toUTCString()}
                 </span>
             </Name>
             <Text>Whats up byurifuuu</Text>

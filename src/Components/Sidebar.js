@@ -5,6 +5,7 @@ import { sidebarItemsData } from '../data/SideBarData';
 import AddIcon from '@mui/icons-material/Add';
 import {channelData} from '../data/ChannelData';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
 function Sidebar(props) {
  
@@ -19,6 +20,15 @@ function Sidebar(props) {
         axios.get('/get/channelList').then((res) =>{
             setChannels(res.data)
         })
+    }
+
+
+    const history = useHistory();
+
+    const gotoChannel = (id) => {
+      if(id) {
+          history.push(`/room/${id}`)
+      }
     }
 
     useEffect(()=>{
@@ -52,7 +62,7 @@ function Sidebar(props) {
                 <ChannelList>
                         {
                             channelData .map(item =>(
-                                <Channel>
+                                <Channel onClick={()=> gotoChannel(item.id)}>
                                     {item.hash}
                                     {item.text}
                                 </Channel>

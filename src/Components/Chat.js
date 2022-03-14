@@ -1,10 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ChatInput from './ChatInput';
 import ChatMessage from './ChatMessage';
+import {useParams} from 'react-router-dom'
 
-function Chat() {
+function Chat({user}) {
+    
+    let { channelId } = useParams();
+    const getChannel = () => {
+        //database functionality to fetch channels from rooms
+    }
+    
+    const [messages,setMessages] = useState();
+
+    const getMessages = () =>{
+        //db function to fetch messages
+    }
+
+    const sendMessage = (text) => {
+      if (channelId)
+     { 
+         let payload =  {
+          text:text,
+          user:user.name,
+        }
+        //some db functionality
+
+
+      }
+    }
+
+    const [channel,setChannels] = useState();
+
+    useEffect(()=>{
+         getChannel();
+         getMessages();
+    },[channelId])
+
     return (
         <ContainerChat>
             <Header>
@@ -18,9 +51,16 @@ function Chat() {
                 </ChannelDetails>
             </Header>
             <MessageContainer>
-                 <ChatMessage />
+                {
+                    messages.length > 0 &&
+                    messages.map(()=>{
+                        <ChatMessage 
+                        //props
+                        />
+                    })
+                }
             </MessageContainer>
-            <ChatInput />
+            <ChatInput sendMessage={sendMessage}/>
         </ContainerChat>
     )
 }
@@ -30,6 +70,7 @@ export default Chat
 const ContainerChat = styled.div`
 display:grid;
 grid-template-rows:64px auto min-content; 
+min-height:0;
 `
 
 const Header = styled.div`
@@ -42,6 +83,9 @@ justify-content:space-between;
 `
 
 const MessageContainer = styled.div`
+display:flex;
+flex-direction:column;
+overflow-y:scroll;
 `
 
 const ChannelInfo = styled.div``
