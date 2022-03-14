@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { sidebarItemsData } from '../data/SideBarData';
 import AddIcon from '@mui/icons-material/Add';
 import {channelData} from '../data/ChannelData';
+import axios from 'axios';
 
-function Sidebar() {
+function Sidebar(props) {
+ 
+    const addChannel = () => {
+        const promptName = prompt("Enter channel name");
+        console.log(promptName);
+    }
+
+    const [ channels, setChannels] = useState([]);
+
+    const getChannelList = () =>{
+        axios.get('/get/channelList').then((res) =>{
+            setChannels(res.data)
+        })
+    }
+
+    useEffect(()=>{
+        getChannelList( )
+    },[])
+
     return (
         <Sidebaree>
             <WorkSpace>
@@ -28,11 +47,11 @@ function Sidebar() {
             <ChannelsContainer>
                 <NewChannel>
                     <div>Channels</div>
-                    <AddIcon />
+                    <AddIcon onClick={addChannel}/>
                 </NewChannel>
                 <ChannelList>
                         {
-                            channelData.map(item =>(
+                            channelData .map(item =>(
                                 <Channel>
                                     {item.hash}
                                     {item.text}

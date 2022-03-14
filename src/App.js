@@ -5,16 +5,20 @@ import Login from './Components/Login';
 import styled from 'styled-components';
 import Header from './Components/Header';
 import Sidebar from './Components/Sidebar';
+import { useState } from 'react';
 
 function App() {
+   const [rooms,setRooms] = useState([]) 
+   const [user,setUser] = useState([])
 
-  // const getChannels = () => {
+   const getChannels = () => {
   //   //snapshot is a picture of how the database looks like at a particular time
   //   db.collection('rooms').onSnapShot((snapshot) => {
-  //   // snapshot.docs.map((doc) => {
+  //    setRooms(snapshot.docs.map((doc) => {
   //   //   console.log(doc.data());
-  //   // } )
-  //   })
+  //    return { id:doc.id, name:doc.data().name };
+  //   // } ))
+    }
   // }
   // // //a use effect calls a function only when the app is being initialised unless otherwise it is called when sth is updated
   // // useEffect (() => {
@@ -23,22 +27,27 @@ function App() {
 
   return (
     <div className="App">
-      <Container>
-        <Header />
-        <Main>
-          <Sidebar />
         <Router>
-          <Switch>
-            <Route path = "/room">
-              <Chat />
-            </Route>
-            <Route path = "/">
-              <Login />
-            </Route>
-          </Switch>
+          {
+            !user ?
+            <Login />
+            :
+            <Container>
+            <Header />
+            <Main>
+              <Sidebar rooms={rooms}/>
+              <Switch>
+               <Route path = "/room">
+                <Chat />
+               </Route>
+               <Route path = "/">
+                 <Login />
+               </Route>
+              </Switch>
+            </Main>
+          </Container>
+          }
         </Router>
-        </Main>
-      </Container>
     </div>
   );
 }
